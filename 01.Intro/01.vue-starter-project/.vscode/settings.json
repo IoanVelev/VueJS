@@ -83,5 +83,20 @@
     "scss",
     "pcss",
     "postcss"
-  ]
+  ],
+  "files.associations": {
+    "*.vue": "vue"
+  },
+
+  // Enable Vetur validation for Vue template, script, and style sections
+  "vetur.validation.template": true,
+  "vetur.validation.script": true,
+  "vetur.validation.style": true,
+
+  // Optional: Set default formatters for specific languages if you want to use Prettier with Vetur
+  "vetur.format.defaultFormatter.html": "prettier",
+  "vetur.format.defaultFormatter.js": "prettier-eslint",
+  "vetur.format.defaultFormatter.css": "prettier",
+  "vetur.format.defaultFormatter.less": "prettier",
+  "vetur.format.defaultFormatter.scss": "prettier"
 }
