@@ -29,6 +29,46 @@ export default {
           quantity: 2,
         },
       ],
+      inventory: [
+        {
+          id: 1,
+          name: 'Electronics',
+          products: [
+            {
+              id: 1,
+              name: 'Smartphone',
+              price: 499.99,
+              quantity: 2,
+            },
+            {
+              id: 2,
+              name: 'Laptop',
+              price: 999.99,
+              quantity: 1,
+            },
+          ],
+        },
+        {
+          id: 2,
+          name: 'Audio',
+          products: [
+            {
+              id: 3,
+              name: 'Headphones',
+              price: 79.99,
+              quantity: 3,
+            },
+          ],
+        },
+      ],
+      bookInfo: {
+        title: 'The Magical Adventure',
+        author: 'John Smith',
+        genre: 'Fantasy',
+        publishedAt: '2023-07-15',
+        pages: 320,
+        rating: '★★★★☆',
+      },
     };
   },
   methods: {
@@ -53,7 +93,7 @@ export default {
   <h3 v-show="!isDay">
     This text is shown when it's not a day.
   </h3>
-  <h3>Products: </h3>
+  <h3>Products:</h3>
   <br>
   <br>
   <ul>
@@ -61,4 +101,11 @@ export default {
       {{ product.name }}
     </li>
   </ul>
+
+  <div>
+    <h4>Books: </h4>
+    <p v-for="(book, key, indx) in bookInfo" :key="indx">
+      {{` ${key}: ${book} `}}
+    </p>
+  </div>
 </template>
