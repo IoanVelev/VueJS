@@ -24,4 +24,7 @@ export default {
   <button @click="onClick">
     Toggle
   </button>
+  <h3 v-show="!isDay">
+    This text is shown when it's not a day.
+  </h3>
 </template>
