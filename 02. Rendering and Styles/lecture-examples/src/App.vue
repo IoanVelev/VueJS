@@ -2,6 +2,7 @@
 export default {
   data() {
     return {
+      title: 'Hello world',
       isDay: true,
       cartProducts: [
         {
@@ -75,12 +76,22 @@ export default {
     onClick() {
       this.isDay = !this.isDay;
     },
+    changeTitleText(arg) {
+      if (this.title === 'Hello world') {
+        this.title = arg;
+      }
+      else {
+        this.title = 'Hello world';
+      }
+    },
   },
 };
 </script>
 
 <template>
-  <h1>Hello world</h1>
+  <h1 :class="[title === 'Goodbye' ? 'changedTitle' : 'originalTitle']">
+    {{ title }}
+  </h1>
   <h2 v-if="isDay">
     It's sunny outside! &#127774;
   </h2>
@@ -105,7 +116,26 @@ export default {
   <div>
     <h4>Books: </h4>
     <p v-for="(book, key, indx) in bookInfo" :key="indx">
-      {{` ${key}: ${book} `}}
+      {{ ` ${key}: ${book} ` }}
     </p>
   </div>
+
+  <button class="titleChanger" @click="changeTitleText('Goodbye')">
+    Change title
+  </button>
 </template>
+
+<style>
+.titleChanger {
+  display: flex;
+  justify-self: center;
+}
+
+.originalTitle {
+  color: green
+}
+
+.changedTitle {
+  color: red;
+}
+</style>
