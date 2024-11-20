@@ -70,7 +70,20 @@ export default {
         pages: 320,
         rating: '★★★★☆',
       },
+      author: {
+        name: 'John Doe',
+        books: [
+          'Vue 2 - Advanced Guide',
+          'Vue 3 - Basic Guide',
+          'Vue 4 - The Mystery',
+        ],
+      },
     };
+  },
+  computed: {
+    hasBooks() {
+      return this.author.books.length > 0 ? 'Yes' : 'No';
+    },
   },
   methods: {
     onClick() {
@@ -131,6 +144,10 @@ export default {
   <button @click.ctrl.exact="clickEventModifier">
     Event modifiers
   </button>
+  <br>
+  <br>
+  <p>{{ author.name }} has published books:</p>
+  <span>{{ hasBooks }}</span>
 </template>
 
 <style>
