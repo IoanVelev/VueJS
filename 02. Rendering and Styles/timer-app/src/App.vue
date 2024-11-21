@@ -37,7 +37,7 @@ export default {
 
 <template>
   <h1 class="title">Timer app</h1>
-  <input type="text" @input="onInput" />
+  <input type="text" @input="onInput" :value="`${this.userInput}`">
   <button type="button" @click="onStart">Start</button>
   <button type="button" @click="onPause">Pause</button>
   <button type="button" @click="onReset">Reset</button>
