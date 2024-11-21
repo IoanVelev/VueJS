@@ -90,6 +90,11 @@ export default {
       return this.inputValue.length > INPUT_LIMIT;
     },
   },
+  watch: {
+    inputValue(newValue, oldValue) {
+      console.log('watcher', newValue, oldValue);
+    },
+  },
   methods: {
     onClick() {
       this.isDay = !this.isDay;
