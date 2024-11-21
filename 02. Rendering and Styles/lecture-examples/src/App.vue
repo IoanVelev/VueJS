@@ -1,4 +1,5 @@
 <script>
+const INPUT_LIMIT = 20;
 export default {
   data() {
     return {
@@ -78,11 +79,15 @@ export default {
           'Vue 4 - The Mystery',
         ],
       },
+      inputValue: '',
     };
   },
   computed: {
     hasBooks() {
       return this.author.books.length > 0 ? 'Yes' : 'No';
+    },
+    hasReachedLimit() {
+      return this.inputValue.length > INPUT_LIMIT;
     },
   },
   methods: {
@@ -101,6 +106,9 @@ export default {
     },
     clickEventModifier() {
       console.log('Clicked event modifier');
+    },
+    onInputChange(inputEvent) {
+      this.inputValue = inputEvent.target.value;
     },
   },
 };
@@ -148,6 +156,16 @@ export default {
   <br>
   <p>{{ author.name }} has published books:</p>
   <span>{{ hasBooks }}</span>
+
+  <article>
+    <h2>
+      Search field
+    </h2>
+    <input type="text" @input="onInputChange">
+    <p v-if="hasReachedLimit">
+      🚩Limit has been reached!
+    </p>
+  </article>
 </template>
 
 <style>
