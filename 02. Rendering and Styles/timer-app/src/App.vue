@@ -15,6 +15,8 @@ export default {
       const interval = setInterval(() => {
         if (this.timerSeconds > 0 && !this.isPaused) {
           this.timerSeconds -= 1;
+        } else if(this.timerSeconds > 0 && this.isPaused){
+          this.timerSeconds -= 0;
         } else {
           clearInterval(interval);
         }
@@ -39,9 +41,9 @@ export default {
 
 <template>
   <h1 class="title">Timer app</h1>
-  <input type="text" @input="onInput" :value="`${this.userInput}`">
+  <input type="text" @input="onInput" :value="`${this.userInput}`" />
   <button type="button" @click="onStart">Start</button>
-  <button type="button" @click="onPause">Pause</button>
+  <button type="button" @click="onPause">{{isPaused ? 'Resume' : 'Pause'}}</button>
   <button type="button" @click="onReset">Reset</button>
   <p class="time-remaining" v-if="timerSeconds">
     Remaining time: {{ timerSeconds }}
