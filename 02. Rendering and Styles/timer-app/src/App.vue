@@ -4,6 +4,7 @@ export default {
     return {
       userInput: "",
       timerSeconds: 0,
+      isPaused: false,
     };
   },
   methods: {
@@ -12,7 +13,7 @@ export default {
     },
     timerHandler() {
       const interval = setInterval(() => {
-        if (this.timerSeconds > 0) {
+        if (this.timerSeconds > 0 && !this.isPaused) {
           this.timerSeconds -= 1;
         } else {
           clearInterval(interval);
@@ -23,9 +24,10 @@ export default {
       const [h, m, s] = this.userInput.split(":").map((num) => Number(num));
       this.timerSeconds = s + 60 * m + 3600 * h;
       this.timerHandler();
+      this.userInput = "";
     },
     onPause() {
-      //TODO
+      this.isPaused = !this.isPaused;
     },
     onReset() {
       this.timerSeconds = 0;
