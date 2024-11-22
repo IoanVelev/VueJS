@@ -71,7 +71,7 @@ export default {
   <p class="time-remaining" v-if="timerSeconds">
     Remaining time: {{ timerSeconds }}
   </p>
-  <p v-if="showWarning">Less than 20% of time remains!</p>
+  <p class="warning-message" v-if="showWarning">Less than 20% of time remains!</p>
 </template>
 
 <style scoped>
@@ -81,5 +81,10 @@ export default {
 
 .time-remaining {
   font-size: 20px;
+}
+
+.warning-message {
+  color: red;
+  font-weight: 600;
 }
 </style>
