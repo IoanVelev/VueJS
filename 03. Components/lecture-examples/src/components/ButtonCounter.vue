@@ -1,5 +1,16 @@
 <script>
 export default {
+  props: {
+    title: {
+      type: String,
+      default: "Default value",
+    },
+    text: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['wasIncremented'],
   data() {
     return {
       count: 0,
@@ -8,31 +19,30 @@ export default {
   methods: {
     onClick() {
       this.count += 1;
+      this.$emit('wasIncremented', this.count);
     },
   },
 };
 </script>
 
 <template>
-  <p class="text-counter">I was clicked {{ count }} times.</p>
-  <button class="btn-counter" @click="onClick">Click me</button>
+  <div class="wrapper">
+    <h2>{{ title }}</h2>
+    <button class="btn-counter" @click="onClick">{{ text }}{{ count }}</button>
+  </div>
 </template>
 
 <style>
-.text-counter {
-  display: flex;
-  justify-content: left;
-  position: fixed;
-  margin-top: 100px;
-  font-size: 20px;
-  
+.wrapper {
+  display: grid;
+  position: relative;
 }
-
 .btn-counter {
-  display: flex;
   margin-top: 150px;
-  justify-content: center;
   width: 8rem;
-  position: fixed;
+  font-size: 15px;
+  padding: 10px;
+  background-color: lightcoral;
+  color: white;
 }
 </style>
