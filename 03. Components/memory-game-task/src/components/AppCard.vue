@@ -5,20 +5,30 @@ export default {
       type: String,
       required: true,
       validator(value) {
-        return value.include('http');
+        return value.includes('http');
       },
-      alt: {
-        type: String,
-        default: 'Image alt text',
-      },
-      isFlipped: Boolean,
+    },
+    alt: {
+      type: String,
+      default: 'Image alt text',
+    },
+    isFlipped: Boolean,
+    id: {
+      type: Number,
+      required: true,
+    },
+  },
+  emits: ['flip'],
+  methods: {
+    onClick() {
+      this.$emit('flip', this.id);
     },
   },
 };
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="onClick">
     <div class="card-inner" :class="{ 'is-flipped': isFlipped }">
       <div class="card-front">
         <img :src="url" :alt="alt">
@@ -30,7 +40,7 @@ export default {
   </div>
 </template>
 
-<style>
+<style scoped>
 .card {
   aspect-ratio: 3/4;
   perspective: 1000px;
