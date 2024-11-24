@@ -61,6 +61,13 @@ export default {
       ],
     };
   },
+  methods: {
+    onFlip(cardId) {
+      const selectedCard = this.cards.find(el => el.id === cardId);
+      console.log(cardId);
+      selectedCard.isFlipped = !selectedCard.isFlipped;
+    },
+  },
 };
 </script>
 
@@ -71,7 +78,12 @@ export default {
     <div class="game-board">
       <AppCard
         v-for="card in cards"
+        :id="card.id"
         :key="card.id"
+        :url="card.image"
+        :alt="card.name"
+        :is-flipped="card.isFlipped"
+        @flip="onFlip"
       />
     </div>
   </div>
