@@ -4,7 +4,6 @@ export default {
   data() {
     return {
       inputText: '',
-
     };
   },
   methods: {
@@ -13,13 +12,20 @@ export default {
       this.inputText = text;
       this.$emit('change', text);
     },
+    onReset() {
+      this.inputText = '';
+      this.$emit('change', '');
+    },
   },
 };
 </script>
 
 <template>
   <article class="appArticle">
-    <input type="text" @input="onChange">
+    <input type="text" :value="inputText" @input="onChange">
+    <button type="button" @click="onReset">
+      Reset
+    </button>
   </article>
 </template>
 
