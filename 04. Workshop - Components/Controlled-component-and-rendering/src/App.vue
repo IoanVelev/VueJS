@@ -1,13 +1,18 @@
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import AppInput from './components/AppInput.vue';
 
 export default {
   components: {
-    HelloWorld,
+    AppInput,
+  },
+  methods: {
+    changeHandler(text) {
+      console.log('In app: ', text);
+    },
   },
 };
 </script>
 
 <template>
-  <HelloWorld />
+  <AppInput @change="changeHandler" />
 </template>
