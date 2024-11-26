@@ -5,14 +5,32 @@ export default {
   components: {
     AppInput,
   },
+  data() {
+    return {
+      firstName: '',
+      lastName: '',
+    };
+  },
   methods: {
-    changeHandler(text) {
+    firstNameHandler(text) {
       console.log('In app: ', text);
+      this.firstName = text;
+    },
+    lastNameHandler(text) {
+      this.lastName = text;
+    },
+    resetAll() {
+      this.firstName = '';
+      this.lastName = '';
     },
   },
 };
 </script>
 
 <template>
-  <AppInput @change="changeHandler" />
+  <AppInput :value="firstName" @change="firstNameHandler" />
+  <AppInput :value="lastName" @change="lastNameHandler" />
+  <button class="contrast" @click="resetAll">
+    Reset all
+  </button>
 </template>
