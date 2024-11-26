@@ -1,19 +1,18 @@
 <script>
 export default {
-  emits: ['change'],
-  data() {
-    return {
-      inputText: '',
-    };
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
   },
+  emits: ['change'],
   methods: {
     onChange(event) {
       const text = event.target.value;
-      this.inputText = text;
       this.$emit('change', text);
     },
     onReset() {
-      this.inputText = '';
       this.$emit('change', '');
     },
   },
@@ -22,7 +21,7 @@ export default {
 
 <template>
   <article class="appArticle">
-    <input type="text" :value="inputText" @input="onChange">
+    <input type="text" :value="value" @input="onChange">
     <button type="button" @click="onReset">
       Reset
     </button>
@@ -33,5 +32,7 @@ export default {
 .appArticle {
     max-width: 400px;
     margin: 2rem;
+    display: flex;
+    gap: 1rem;
 }
 </style>
