@@ -20,8 +20,11 @@ export default {
   </section>
 </template>
 
-<style>
-.btns{
-
+<style scoped>
+.btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 30px;
 }
 </style>
