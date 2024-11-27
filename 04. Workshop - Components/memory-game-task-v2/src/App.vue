@@ -1,10 +1,12 @@
 <script>
 import AppCard from './components/AppCard.vue';
+import GameControls from './components/GameControls.vue';
 
 export default {
   name: 'MemoryGame',
   components: {
     AppCard,
+    GameControls,
   },
   data() {
     return {
@@ -74,6 +76,12 @@ export default {
 <template>
   <div class="memory-game-container">
     <h1>Memory Game</h1>
+
+    <GameControls
+      @start=""
+      @stop=""
+      @reset=""
+    />
 
     <div class="game-board">
       <AppCard
