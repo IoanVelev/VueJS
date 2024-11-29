@@ -66,6 +66,9 @@ export default {
   },
   methods: {
     onFlip(cardId) {
+      if (!this.isPlaying) {
+        return;
+      }
       const selectedCard = this.cards.find(el => el.id === cardId);
       console.log(cardId);
       selectedCard.isFlipped = !selectedCard.isFlipped;
