@@ -1,5 +1,5 @@
 <script>
-const GAME_TIME = 90;
+const GAME_TIME = 3;
 let interval;
 export default {
   props: {
@@ -11,16 +11,17 @@ export default {
   emits: ['start', 'end', 'reset'],
   data() {
     return {
-      secondsLeft: null,
+      secondsLeft: 0,
       hasLost: false,
     };
   },
   methods: {
     startHandler() {
+      this.hasLost = false;
       this.$emit('start');
       this.secondsLeft = GAME_TIME;
       interval = setInterval(() => {
-        if (this.secondsLeft > 0) {
+        if (this.secondsLeft > 1) {
           this.secondsLeft -= 1;
         }
         else {
@@ -30,6 +31,7 @@ export default {
     },
     endGame() {
       clearInterval(interval);
+      this.secondsLeft = 0;
       this.$emit('end');
       this.hasLost = true;
     },
