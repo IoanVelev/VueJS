@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     startHandler() {
-      // this.hasLost = false;
+      this.hasLost = false;
       this.$emit('start');
       this.secondsLeft = GAME_TIME;
       interval = setInterval(() => {
@@ -27,7 +27,7 @@ export default {
         }
         else {
           this.hasLost = true;
-          this.endGame();
+          this.stopGame();
         }
       }, 1000);
     },
