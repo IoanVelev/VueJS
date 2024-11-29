@@ -10,6 +10,7 @@ export default {
   },
   data() {
     return {
+      isPlaying: false,
       cards: [
         // Each card appears twice in the array for pairs
         {
@@ -78,9 +79,9 @@ export default {
     <h1>Memory Game</h1>
 
     <GameControls
-      @start=""
-      @stop=""
-      @reset=""
+      :is-playing="isPlaying"
+      @start="isPlaying = true"
+      @stop="isPlaying = false"
     />
 
     <div class="game-board">

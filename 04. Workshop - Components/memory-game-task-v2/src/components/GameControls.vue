@@ -1,6 +1,7 @@
 <script>
 const GAME_TIME = 3;
 let interval;
+
 export default {
   props: {
     isPlaying: {
@@ -8,7 +9,7 @@ export default {
       required: true,
     },
   },
-  emits: ['start', 'end', 'reset'],
+  emits: ['start', 'stop', 'reset'],
   data() {
     return {
       secondsLeft: 0,
@@ -17,7 +18,7 @@ export default {
   },
   methods: {
     startHandler() {
-      this.hasLost = false;
+      // this.hasLost = false;
       this.$emit('start');
       this.secondsLeft = GAME_TIME;
       interval = setInterval(() => {
@@ -25,15 +26,15 @@ export default {
           this.secondsLeft -= 1;
         }
         else {
+          this.hasLost = true;
           this.endGame();
         }
       }, 1000);
     },
-    endGame() {
+    stopGame() {
       clearInterval(interval);
       this.secondsLeft = 0;
-      this.$emit('end');
-      this.hasLost = true;
+      this.$emit('stop');
     },
   },
 };
@@ -42,11 +43,15 @@ export default {
 <template>
   <section>
     <div class="btns">
-      <button @click="startHandler">
+      <button :disabled="isPlaying" @click="startHandler">
         Start
       </button>
-      <button>Pause</button>
-      <button>Reset</button>
+      <button :disabled="!isPlaying" @click="stopGame">
+        Stop
+      </button>
+      <button :disabled="!isPlaying">
+        Reset
+      </button>
     </div>
   </section>
   <h2 v-if="secondsLeft">
