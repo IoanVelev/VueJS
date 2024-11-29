@@ -74,6 +74,7 @@ export default {
       handler(newState) {
         if (newState.length === 3) {
           this.hasWon = true;
+          this.resetState();
         }
       },
       deep: true,
@@ -85,7 +86,6 @@ export default {
       this.cards = structuredClone(CARDS_DEFAULT);
       this.matchedCards = [];
       this.previousCardName = '';
-      this.hasWon = false;
     },
     onFlip(cardId) {
       if (!this.isPlaying) {
@@ -98,6 +98,10 @@ export default {
       }
 
       const selectedCard = this.cards.find(el => el.id === cardId);
+      if (!selectedCard) {
+        return;
+      }
+
       selectedCard.isFlipped = !selectedCard.isFlipped;
 
       if (!this.previousCardName) {
@@ -105,7 +109,7 @@ export default {
         return;
       }
       if (this.previousCardName === selectedCard.name) {
-        this.matchedCards.push(this.selectedCard.name);
+        this.matchedCards.push(selectedCard.name);
       }
       this.previousCardName = '';
     },
@@ -127,13 +131,10 @@ export default {
 
     <GameControls
       :is-playing="isPlaying"
+      :has-won="hasWon"
       @start="onStart"
       @stop="onStop"
     />
-
-    <h2 v-if="hasWon">
-      You won!
-    </h2>
 
     <div class="game-board">
       <AppCard
