@@ -1,5 +1,5 @@
 <script>
-const GAME_TIME = 3;
+const GAME_TIME = 5;
 let interval;
 
 export default {
@@ -48,9 +48,6 @@ export default {
       </button>
       <button :disabled="!isPlaying" @click="stopGame">
         Stop
-      </button>
-      <button :disabled="!isPlaying">
-        Reset
       </button>
     </div>
   </section>
