@@ -8,8 +8,12 @@ export default {
       type: Boolean,
       required: true,
     },
+    hasWon: {
+      type: Boolean,
+      required: true,
+    },
   },
-  emits: ['start', 'stop', 'reset'],
+  emits: ['start', 'stop'],
   data() {
     return {
       secondsLeft: 0,
@@ -54,9 +58,12 @@ export default {
   <h2 v-if="secondsLeft">
     Seconds left: {{ secondsLeft }}
   </h2>
-  <p v-if="hasLost">
+  <h2 v-if="hasLost">
     You lost. :/
-  </p>
+  </h2>
+  <h2 v-if="hasWon">
+    You won!
+  </h2>
 </template>
 
 <style scoped>
