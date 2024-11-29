@@ -2,6 +2,58 @@
 import AppCard from './components/AppCard.vue';
 import GameControls from './components/GameControls.vue';
 
+const CARDS_DEFAULT = [
+  // Each card appears twice in the array for pairs
+  {
+    id: 1,
+    name: 'Vue',
+    image:
+            'https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg',
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    id: 2,
+    name: 'React',
+    image:
+            'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    id: 3,
+    name: 'Angular',
+    image:
+            'https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg',
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    id: 4,
+    name: 'Vue',
+    image:
+            'https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg',
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    id: 5,
+    name: 'React',
+    image:
+            'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+    isFlipped: false,
+    isMatched: false,
+  },
+  {
+    id: 6,
+    name: 'Angular',
+    image:
+            'https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg',
+    isFlipped: false,
+    isMatched: false,
+  },
+];
+
 export default {
   name: 'MemoryGame',
   components: {
@@ -11,67 +63,59 @@ export default {
   data() {
     return {
       isPlaying: false,
-      cards: [
-        // Each card appears twice in the array for pairs
-        {
-          id: 1,
-          name: 'Vue',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg',
-          isFlipped: false,
-          isMatched: false,
-        },
-        {
-          id: 2,
-          name: 'React',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
-          isFlipped: false,
-          isMatched: false,
-        },
-        {
-          id: 3,
-          name: 'Angular',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg',
-          isFlipped: false,
-          isMatched: false,
-        },
-        {
-          id: 4,
-          name: 'Vue',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg',
-          isFlipped: false,
-          isMatched: false,
-        },
-        {
-          id: 5,
-          name: 'React',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
-          isFlipped: false,
-          isMatched: false,
-        },
-        {
-          id: 6,
-          name: 'Angular',
-          image:
-            'https://upload.wikimedia.org/wikipedia/commons/c/cf/Angular_full_color_logo.svg',
-          isFlipped: false,
-          isMatched: false,
-        },
-      ],
+      cards: structuredClone(CARDS_DEFAULT),
+      matchedCards: [],
+      previousCardName: '',
+      hasWon: false,
     };
   },
+  watch: {
+    matchedCards: {
+      handler(newState) {
+        if (newState.length === 3) {
+          this.hasWon = true;
+        }
+      },
+      deep: true,
+    },
+  },
   methods: {
+    resetState() {
+      this.isPlaying = false;
+      this.cards = structuredClone(CARDS_DEFAULT);
+      this.matchedCards = [];
+      this.previousCardName = '';
+      this.hasWon = false;
+    },
     onFlip(cardId) {
       if (!this.isPlaying) {
         return;
       }
+      const flippedCardsCount = this.cards.filter(card => card.isFlipped).length;
+
+      if (flippedCardsCount === 2) {
+        this.cards.forEach(card => card.isFlipped = false);
+      }
+
       const selectedCard = this.cards.find(el => el.id === cardId);
-      console.log(cardId);
       selectedCard.isFlipped = !selectedCard.isFlipped;
+
+      if (!this.previousCardName) {
+        this.previousCardName = selectedCard.name;
+        return;
+      }
+      if (this.previousCardName === selectedCard.name) {
+        this.matchedCards.push(this.selectedCard.name);
+      }
+      this.previousCardName = '';
+    },
+    onStart() {
+      this.isPlaying = true;
+      this.hasWon = false;
+      this.cards = structuredClone(CARDS_DEFAULT);
+    },
+    onStop() {
+      this.resetState();
     },
   },
 };
@@ -83,9 +127,13 @@ export default {
 
     <GameControls
       :is-playing="isPlaying"
-      @start="isPlaying = true"
-      @stop="isPlaying = false"
+      @start="onStart"
+      @stop="onStop"
     />
+
+    <h2 v-if="hasWon">
+      You won!
+    </h2>
 
     <div class="game-board">
       <AppCard
@@ -94,7 +142,7 @@ export default {
         :key="card.id"
         :url="card.image"
         :alt="card.name"
-        :is-flipped="card.isFlipped"
+        :is-flipped="card.isFlipped || card.isMatched"
         @flip="onFlip"
       />
     </div>
