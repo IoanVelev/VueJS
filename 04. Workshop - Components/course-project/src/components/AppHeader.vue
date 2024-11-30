@@ -1,6 +1,6 @@
 <script>
 export default {
-
+  emits: ['select'],
 };
 </script>
 
@@ -16,11 +16,11 @@ export default {
         </li>
       </ul>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contacts</a></li>
-        <li><a href="#" role="button">Cart</a></li>
+        <li><a href="#" @click.prevent="$emit('select', 'HomeView')">Home</a></li>
+        <li><a href="#" @click.prevent="$emit('select', 'ProductsView')">Products</a></li>
+        <li><a href="#" @click.prevent="$emit('select', 'AboutView')">About</a></li>
+        <li><a href="#" @click.prevent="$emit('select', 'ContactsView')">Contacts</a></li>
+        <li><a href="#" role="button" @click.prevent="$emit('select', 'CartView')">Cart</a></li>
       </ul>
     </nav>
   </header>
