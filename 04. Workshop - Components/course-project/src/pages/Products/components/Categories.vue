@@ -2,16 +2,17 @@
 import { categories } from '../../../constants/categories';
 
 export default {
+  props: {
+    activeCategory: {
+      type: String,
+      required: true,
+    },
+  },
+  emits: ['select'],
   data() {
     return {
       categories,
-      activeCategory: '',
     };
-  },
-  methods: {
-    onSelect(selectedValue) {
-      this.activeCategory = selectedValue === this.activeCategory ? '' : selectedValue;
-    },
   },
 };
 </script>
@@ -21,7 +22,7 @@ export default {
     <li v-for="category in categories" :key="`ctg-btn-${category.value}`">
       <button
         :class="[category.value === activeCategory ? 'primary' : 'secondary outline']"
-        @click="onSelect(category.value)"
+        @click="$emit('select', category.value)"
       >
         {{ category.name }}
       </button>
@@ -29,7 +30,7 @@ export default {
   </ul>
 </template>
 
-<style>
+<style scoped>
 .categories {
   display: flex;
   justify-content: center;
