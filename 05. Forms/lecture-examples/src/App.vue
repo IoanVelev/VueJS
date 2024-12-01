@@ -7,11 +7,22 @@ export default {
     AppInput,
     BasicExample,
   },
+  data() {
+    return {
+      inputText: '',
+    };
+  },
 };
 </script>
 
 <template>
-  <AppInput id="example1" placeholder="Write something here." name="My custom component" />
+  <AppInput
+    id="example1"
+    v-model="inputText"
+    placeholder="Write something here."
+    name="My custom component"
+  />
+  <p>Input text: {{ inputText }}</p>
   <BasicExample />
 </template>
 
