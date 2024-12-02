@@ -31,14 +31,3 @@ export default {
   <BasicExample />
     -->
 </template>
-
-  <style scoped>
-    article {
-    max-width: 500px;
-    margin: 4rem auto 0;
-    fieldset {
-    border: 1px lightcoral solid;
-    padding: 10px;
-    }
-    }
-  </style>
