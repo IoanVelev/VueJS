@@ -61,7 +61,13 @@ export default {
       },
       skillsOption: AVAILABLE_SKILLS,
       countriesOptions: COUNTRIES,
+      isSubmitted: false,
     };
+  },
+  methods: {
+    onSubmit() {
+      this.isSubmitted = true;
+    },
   },
 };
 </script>
@@ -70,7 +76,7 @@ export default {
   <section class="pageSection">
     <article>
       <header>Register form</header>
-      <form>
+      <form @submit.prevent="onSubmit">
         <div class="double-row">
           <fieldset>
             <label for="firstName">First name</label>
@@ -125,14 +131,14 @@ export default {
             <span>{{ skill.name }}</span>
           </label>
         </fieldset>
+        <button type="submit">
+          Submit ➤
+        </button>
       </form>
-      <button type="submit">
-        Submit ➤
-      </button>
     </article>
 
     <article>
-      <div>
+      <div v-if="isSubmitted">
         <h2>Data viewer</h2>
         <ul>
           <li v-for="(value, key) in data" :key="key">
