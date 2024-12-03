@@ -1,6 +1,6 @@
 <script>
 import { useVuelidate } from '@vuelidate/core';
-import { required } from '@vuelidate/validators';
+import { email, maxValue, minValue, required } from '@vuelidate/validators';
 
 const AVAILABLE_SKILLS = [
   {
@@ -77,12 +77,20 @@ export default {
       data: {
         firstName: { required },
         lastName: { required },
+        email: { required, email },
+        age: {
+          minValue: minValue(1),
+          maxValue: maxValue(100),
+        },
       },
     };
   },
   methods: {
-    onSubmit() {
-      this.isSubmitted = true;
+    async onSubmit() {
+      const isValid = await this.v$.$validate();
+      if (isValid) {
+        this.isSubmitted = true;
+      }
     },
   },
 };
@@ -94,19 +102,16 @@ export default {
       <header>Register form</header>
       <form @submit.prevent="onSubmit">
         <div class="double-row">
-          <!-- <fieldset>
+          <fieldset>
             <label for="firstName">First name</label>
             <input id="firstName" v-model="data.firstName" type="text">
-          </fieldset> -->
-
-          <div :class="{ error: v$.data.firstName.$errors.length }">
-            <input v-model="v$.data.firstName.$model">
             <div v-for="error of v$.data.firstName.$errors" :key="error.$uid" class="input-errors">
               <div class="error-msg">
                 {{ error.$message }}
               </div>
             </div>
-          </div>
+          </fieldset>
+
           <fieldset>
             <label for="lastName">Last name</label>
             <input id="lastName" v-model="data.lastName" type="text" @blur="v$.data.lastName.$touch">
@@ -121,12 +126,24 @@ export default {
         <div class="double-row">
           <fieldset>
             <label for="age">Age</label>
-            <input id="age" v-model="data.age" type="number">
+            <input id="age" v-model="v$.data.age.$model" type="number">
+            <div v-for="error of v$.data.age.$errors" :key="error.$uid" class="input-errors">
+              <div class="error-msg">
+                {{ error.$message }}
+              </div>
+            </div>
           </fieldset>
+
           <fieldset>
             <label for="email">Email</label>
-            <input id="email" v-model="data.email" type="email">
+            <input id="email" v-model="v$.data.email.$model" type="email">
+            <div v-for="error of v$.data.email.$errors" :key="error.$uid" class="input-errors">
+              <div class="error-msg">
+                {{ error.$message }}
+              </div>
+            </div>
           </fieldset>
+
           <fieldset>
             <p>Gender</p>
             <label>
