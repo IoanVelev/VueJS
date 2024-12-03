@@ -76,6 +76,7 @@ export default {
     return {
       data: {
         firstName: { required },
+        lastName: { required },
       },
     };
   },
@@ -108,7 +109,12 @@ export default {
           </div>
           <fieldset>
             <label for="lastName">Last name</label>
-            <input id="lastName" v-model="data.lastName" type="text">
+            <input id="lastName" v-model="data.lastName" type="text" @blur="v$.data.lastName.$touch">
+            <div v-for="error of v$.data.lastName.$errors" :key="error.$uid" class="input-errors">
+              <div class="error-msg">
+                {{ error.$message }}
+              </div>
+            </div>
           </fieldset>
         </div>
 
