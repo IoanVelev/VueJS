@@ -20,6 +20,7 @@ export default {
         <li><a href="#" @click.prevent="$emit('select', 'ProductsView')">Products</a></li>
         <li><a href="#" @click.prevent="$emit('select', 'AboutView')">About</a></li>
         <li><a href="#" @click.prevent="$emit('select', 'ContactsView')">Contacts</a></li>
+        <li><a href="#" @click.prevent="$emit('select', 'RegisterView')">Register</a></li>
         <li><a href="#" role="button" @click.prevent="$emit('select', 'CartView')">Cart</a></li>
       </ul>
     </nav>

@@ -6,6 +6,7 @@ import CartView from './pages/CartView.vue';
 import ContactsView from './pages/ContactsView.vue';
 import HomeView from './pages/HomeView.vue';
 import ProductsView from './pages/Products/ProductsView.vue';
+import RegisterView from './pages/Register/RegisterView.vue';
 
 export default {
   components: {
@@ -15,6 +16,7 @@ export default {
     HomeView,
     ContactsView,
     AboutView,
+    RegisterView,
     CartView,
   },
   data() {
