@@ -1,7 +1,10 @@
 <script>
 import useVuelidate from '@vuelidate/core';
+import { helpers, required } from '@vuelidate/validators';
 import DoubleRow from './DoubleRow.vue';
 import FormFieldset from './FormFieldset.vue';
+
+const namePattern = helpers.regex(/^[A-Z][a-z]+ [A-Z][a-z]+$/);
 
 export default {
   components: {
@@ -26,13 +29,35 @@ export default {
       },
     };
   },
+  validations() {
+    return {
+      formData: {
+        name: {
+          required,
+          namePattern: helpers.withMessage('Field should consist of two names (letters only) seperated by a space. Both names should start with capital letters', namePattern),
+        },
+        password: '',
+        rePass: '',
+        email: '',
+        phone: '',
+        gender: { required },
+        dateOfBirth: '',
+      },
+    };
+  },
+  methods: {
+    async onSubmit() {
+      const isValid = await this.v$.validate();
+      console.log('isValid ?', isValid, this.formData);
+    },
+  },
 };
 </script>
 
 <template>
-  <form>
-    <FormFieldset title="Name">
-      <input type="text" placeholder="Enter your name">
+  <form @submit.prevent="onSubmit">
+    <FormFieldset title="Name" :errors="v$.formData.name.$errors">
+      <input v-model="formData.name" type="text" placeholder="Enter your name" @blur="v$.formData.name.$touch">
     </FormFieldset>
 
     <DoubleRow>
@@ -54,14 +79,19 @@ export default {
     </DoubleRow>
 
     <DoubleRow>
-      <FormFieldset title="Gender">
-        <select>
-          <option value="Select gender" />
-          <option value="female">
-            Female
+      <FormFieldset
+        title="Gender"
+        :errors="v$.formData.gender.$errors"
+      >
+        <select v-model="v$.formData.gender.$model">
+          <option value="">
+            Select gender
           </option>
           <option value="male">
             Male
+          </option>
+          <option value="female">
+            Female
           </option>
         </select>
       </FormFieldset>
