@@ -1,4 +1,5 @@
 <script>
+import useVuelidate from '@vuelidate/core';
 import DoubleRow from './DoubleRow.vue';
 import FormFieldset from './FormFieldset.vue';
 
@@ -6,6 +7,24 @@ export default {
   components: {
     FormFieldset,
     DoubleRow,
+  },
+  setup() {
+    return {
+      v$: useVuelidate(),
+    };
+  },
+  data() {
+    return {
+      formData: {
+        name: '',
+        password: '',
+        rePass: '',
+        email: '',
+        phone: '',
+        gender: '',
+        dateOfBirth: '',
+      },
+    };
   },
 };
 </script>
