@@ -5,6 +5,10 @@ export default {
       type: String,
       required: true,
     },
+    errors: {
+      type: Array,
+      required: true,
+    },
     required: Boolean,
     disabled: Boolean,
   },
@@ -20,6 +24,15 @@ export default {
       </span>
       <slot />
     </label>
+
+    <div class="error-container">
+      <strong
+        v-for="error of errors"
+        :key="error.$uid"
+      >
+        {{ error.$message }}
+      </strong>
+    </div>
   </fieldset>
 </template>
 
@@ -30,5 +43,14 @@ span {
     i {
         color: red;
     }
+}
+
+.error-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: red;
 }
 </style>
