@@ -50,6 +50,10 @@ export default {
         <input type="date" placeholder="Enter date of birth">
       </FormFieldset>
     </DoubleRow>
+
+    <button type="submit" class="primary">
+      Next
+    </button>
   </form>
 </template>
 
@@ -57,5 +61,9 @@ export default {
 form {
     display: grid;
     gap: 1rem;
+ }
+
+ input, select {
+  margin: 0;
  }
 </style>
