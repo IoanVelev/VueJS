@@ -20,7 +20,7 @@ export default {
         address1: '',
         address2: '',
         city: '',
-        ZIP: null,
+        ZIP: '',
         country: '',
         payment: '',
         note: '',
@@ -64,8 +64,8 @@ export default {
         </h2>
       </header>
 
-      <GeneralForm v-if="activeStep === 'general'" @next="onNextStep" />
-      <AddressForm v-else @previous="goPrevious" @submit="onSubmit" />
+      <GeneralForm v-if="activeStep === 'general'" :data="userInfo" @next="onNextStep" />
+      <AddressForm v-else :data="userInfo" @previous="goPrevious" @submit="onSubmit" />
     </article>
   </section>
 </template>
