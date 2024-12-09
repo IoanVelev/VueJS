@@ -1,9 +1,11 @@
 <script>
+import AddressForm from './components/AddressForm.vue';
 import GeneralForm from './components/GeneralForm.vue';
 
 export default {
   components: {
     GeneralForm,
+    AddressForm,
   },
   data() {
     return {
@@ -23,12 +25,27 @@ export default {
         payment: '',
         note: '',
       },
+      activeStep: 'general',
     };
   },
   methods: {
     onNextStep(generalData) {
-      console.log(generalData);
+      this.userInfo = {
+        ...this.userInfo,
+        ...generalData,
+      };
+      this.goNext();
+    },
 
+    goNext() {
+      this.activeStep = 'address';
+    },
+
+    goPrevious() {
+      this.activeStep = 'general';
+    },
+
+    onSubmit(generalData) {
       this.userInfo = {
         ...this.userInfo,
         ...generalData,
@@ -42,9 +59,13 @@ export default {
   <section>
     <article>
       <header>
-        <h2>Step 1: General Information</h2>
+        <h2 v-if="activeStep === 'general'">
+          {{ activeStep === 'general' ? 'Step 1: General Information' : 'Step 2: Address Information' }}
+        </h2>
       </header>
-      <GeneralForm @next="onNextStep" />
+
+      <GeneralForm v-if="activeStep === 'general'" @next="onNextStep" />
+      <AddressForm v-else @previous="goPrevious" @submit="onSubmit" />
     </article>
   </section>
 </template>
