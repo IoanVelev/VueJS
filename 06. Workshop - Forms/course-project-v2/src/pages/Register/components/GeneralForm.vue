@@ -1,10 +1,20 @@
 <script>
 import useVuelidate from '@vuelidate/core';
-import { helpers, required } from '@vuelidate/validators';
+import { alphaNum, email, helpers, maxLength, minLength, numeric, required, sameAs } from '@vuelidate/validators';
 import DoubleRow from './DoubleRow.vue';
 import FormFieldset from './FormFieldset.vue';
 
 const namePattern = helpers.regex(/^[A-Z][a-z]+ [A-Z][a-z]+$/);
+
+function minimalAge(minAge) {
+  return helpers.withParams(
+    { minAge },
+    (value) => {
+      const age = new Date(new Date() - new Date(value)).getFullYear() - 1970;
+      return age > minAge;
+    },
+  );
+}
 
 export default {
   components: {
@@ -36,12 +46,36 @@ export default {
           required,
           namePattern: helpers.withMessage('Field should consist of two names (letters only) seperated by a space. Both names should start with capital letters', namePattern),
         },
-        password: '',
-        rePass: '',
-        email: '',
-        phone: '',
+        password: {
+          required,
+          minLength: minLength(3),
+          maxLnegth: maxLength(16),
+          alphaNum,
+        },
+        rePass: {
+          sameAsPassword: sameAs(this.formData.password),
+          required,
+        },
+        email: {
+          required,
+          email,
+        },
+        phone: {
+          required,
+          numeric,
+          minLength: minLength(9),
+          maxLength: maxLength(9),
+        },
         gender: { required },
-        dateOfBirth: '',
+        dateOfBirth: {
+          required,
+          minimalAge: helpers.withMessage(
+            ({
+              $params,
+            }) => `You must be ${$params.minAge}+ years old.`,
+            minimalAge(13),
+          ),
+        },
       },
     };
   },
@@ -61,20 +95,20 @@ export default {
     </FormFieldset>
 
     <DoubleRow>
-      <FormFieldset title="Password">
-        <input type="password" placeholder="Enter your password">
+      <FormFieldset title="Password" :errors="v$.formData.password.$errors">
+        <input v-model="v$.formData.password.$model" type="password" placeholder="Enter your password">
       </FormFieldset>
-      <FormFieldset title="Confirm password">
-        <input type="password" placeholder="Confirm password">
+      <FormFieldset title="Confirm password" :errors="v$.formData.rePass.$errors">
+        <input v-model="v$.formData.rePass.$model" type="password" placeholder="Confirm password">
       </FormFieldset>
     </DoubleRow>
 
     <DoubleRow>
-      <FormFieldset title="Email">
-        <input type="email" placeholder="Enter your email">
+      <FormFieldset title="Email" :errors="v$.formData.email.$errors">
+        <input v-model="v$.formData.email.$model" type="email" placeholder="Enter your email">
       </FormFieldset>
-      <FormFieldset title="Phone number">
-        <input type="text" placeholder="Enter your phone number">
+      <FormFieldset title="Phone number" :errors="v$.formData.phone.$errors">
+        <input v-model.number="v$.formData.phone.$model" type="text" placeholder="Enter your phone number">
       </FormFieldset>
     </DoubleRow>
 
@@ -95,8 +129,8 @@ export default {
           </option>
         </select>
       </FormFieldset>
-      <FormFieldset title="Date of birth">
-        <input type="date" placeholder="Enter date of birth">
+      <FormFieldset title="Date of birth" :errors="v$.formData.dateOfBirth.$errors">
+        <input v-model="v$.formData.dateOfBirth.$model" type="date" placeholder="Enter date of birth">
       </FormFieldset>
     </DoubleRow>
 
