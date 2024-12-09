@@ -21,6 +21,7 @@ export default {
     FormFieldset,
     DoubleRow,
   },
+  emits: ['next'],
   setup() {
     return {
       v$: useVuelidate(),
@@ -81,8 +82,11 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const isValid = await this.v$.validate();
-      console.log('isValid ?', isValid, this.formData);
+      const isValid = await this.v$.$validate();
+
+      if (isValid) {
+        this.$emit('next', this.formData);
+      }
     },
   },
 };
