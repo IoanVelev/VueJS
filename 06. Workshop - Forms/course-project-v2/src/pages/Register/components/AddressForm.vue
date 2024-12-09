@@ -9,6 +9,12 @@ export default {
     FormFieldset,
     DoubleRow,
   },
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
   emits: ['previous', 'submit'],
   setup() {
     return {
@@ -21,7 +27,7 @@ export default {
         address1: '',
         address2: '',
         city: '',
-        ZIP: null,
+        zip: null,
         country: '',
         payment: '',
         note: '',
@@ -32,11 +38,25 @@ export default {
     return {
       formData: {
         address1: {
-
+          required,
           minLength: minLength(5),
         },
       },
     };
+  },
+  watch: {
+    data: {
+      handler(newVal, oldVal) {
+        const areSame = oldVal && (JSON.stringify(Object.entries(newVal).sort())
+          === JSON.stringify(Object.entries(oldVal).sort()));
+
+        if (!areSame) {
+          this.initState(newVal);
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
   },
   methods: {
     async onSubmit() {
@@ -45,6 +65,18 @@ export default {
       if (isValid) {
         this.$emit('submit', this.formData);
       }
+    },
+
+    initState(dataPropVal) {
+      this.formData = {
+        address1: dataPropVal.address1,
+        address2: dataPropVal.address2,
+        city: dataPropVal.city,
+        zip: dataPropVal.zip,
+        country: dataPropVal.country,
+        payment: dataPropVal.payment,
+        note: dataPropVal.note,
+      };
     },
   },
 };
@@ -61,7 +93,7 @@ export default {
     </FormFieldset>
 
     <DoubleRow>
-      <button type="submit" class="secondary" @click="$emit('previous')">
+      <button type="submit" class="secondary" @click="$emit('previous', formData)">
         Previous
       </button>
       <button type="submit" class="primary">
