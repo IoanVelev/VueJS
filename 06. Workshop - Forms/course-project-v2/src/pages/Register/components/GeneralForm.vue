@@ -21,6 +21,12 @@ export default {
     FormFieldset,
     DoubleRow,
   },
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
   emits: ['next'],
   setup() {
     return {
@@ -80,6 +86,21 @@ export default {
       },
     };
   },
+
+  watch: {
+    data: {
+      handler(newVal, oldVal) {
+        const areSame = oldVal && (JSON.stringify(Object.entries(newVal).sort())
+          === JSON.stringify(Object.entries(oldVal).sort()));
+
+        if (!areSame) {
+          this.initState(newVal);
+        }
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
   methods: {
     async onSubmit() {
       const isValid = await this.v$.$validate();
@@ -87,6 +108,18 @@ export default {
       if (isValid) {
         this.$emit('next', this.formData);
       }
+    },
+
+    initState(dataPropVal) {
+      this.formData = {
+        name: dataPropVal.name,
+        password: dataPropVal.password,
+        rePass: dataPropVal.rePass,
+        email: dataPropVal.email,
+        phone: dataPropVal.phone,
+        gender: dataPropVal.gender,
+        dateOfBirth: dataPropVal.dateOfBirth,
+      };
     },
   },
 };
