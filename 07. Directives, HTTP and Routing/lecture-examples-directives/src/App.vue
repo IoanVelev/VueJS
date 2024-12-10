@@ -1,22 +1,32 @@
 <script>
-
 const focus = {
-mounted: (element) => {
-element.focus()
-}
-}
+  mounted: (element, bindingData) => {
+    if (bindingData.value) {
+      element.focus();
+    }
+  },
+  updated: (element, bindingData) => {
+    if (bindingData.value) {
+      element.focus();
+    }
+  }
+};
 
 export default {
-directives: {
-  focus
-}
-}
+  directives: {
+    focus,
+  },
+  data() {
+    return {
+      shouldFocus: false,
+    };
+  },
+};
 </script>
 
 <template>
-  <input v-focus>
+  <button @click="shouldFocus = !shouldFocus">Toggle {{ shouldFocus }}</button>
+  <input v-focus:foo.trim.prevent="shouldFocus" />
 </template>
 
-<style>
-
-</style>
+<style></style>
