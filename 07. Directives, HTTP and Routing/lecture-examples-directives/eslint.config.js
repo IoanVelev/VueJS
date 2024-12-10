@@ -7,6 +7,5 @@ export default antfu({
   rules: {
     'no-console': 'off',
     'style/semi': ['error', 'always'],
-    'vue/no-multiple-template-root': 'off',
   },
 });
