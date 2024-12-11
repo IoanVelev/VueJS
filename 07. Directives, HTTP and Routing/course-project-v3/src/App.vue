@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      page: 'Products',
+      page: 'ProductsView',
     };
   },
   methods: {
