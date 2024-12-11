@@ -6,7 +6,7 @@ export async function getAllProducts() {
   try {
     const response = await axiosInstance.get(`/${ENDPOINT}`);
 
-    return response.data;
+    return response.data.products;
   }
   catch (e) {
     console.error('An error occurred', e);
