@@ -16,7 +16,7 @@ export default {
     };
   },
   async created() {
-    this.products = await getAllProducts();
+    this.loadProducts();
     this.isLoading = false;
   },
   methods: {
@@ -24,10 +24,10 @@ export default {
       const category = this.activeCategory === selectedValue ? '' : selectedValue;
       this.activeCategory = category;
 
-      await this.loadProductsByCategory(category);
+      await this.loadProducts(category);
     },
 
-    async loadProductsByCategory(category) {
+    async loadProducts(category = '') {
       category
         ? this.products = await getProductsByCategory(category)
         : this.products = await getAllProducts();
