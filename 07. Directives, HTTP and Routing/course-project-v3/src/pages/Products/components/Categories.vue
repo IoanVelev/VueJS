@@ -1,5 +1,5 @@
 <script>
-import { categories } from '../../../constants/categories';
+import { getAllCategories } from '../../../services/categories';
 
 export default {
   props: {
@@ -11,14 +11,18 @@ export default {
   emits: ['select'],
   data() {
     return {
-      categories,
+      categories: [],
     };
+  },
+
+  async created() {
+    this.categories = await getAllCategories();
   },
 };
 </script>
 
 <template>
-  <ul role="list" class="categories">
+  <ul v-if="categories.length > 0" role="list" class="categories">
     <li v-for="category in categories" :key="`ctg-btn-${category.value}`">
       <button
         :class="[category.value === activeCategory ? 'primary' : 'secondary outline']"
@@ -33,7 +37,8 @@ export default {
 <style scoped>
 .categories {
   display: flex;
-  justify-content: center;
   gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
 }
 </style>
