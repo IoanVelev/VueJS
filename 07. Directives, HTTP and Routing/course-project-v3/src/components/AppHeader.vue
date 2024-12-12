@@ -4,17 +4,17 @@ export default {
     return {
       links: [
         { path: '/', name: 'Home' },
-        { path: '/products', name: 'ProductsView' },
-        { path: '/about', name: 'AboutView' },
-        { path: '/regsiter', name: 'RegisterView' },
-        { path: '/contacts', name: 'ContactsView' },
+        { path: '/products', name: 'Products' },
+        { path: '/about', name: 'About' },
+        { path: '/register', name: 'Register' },
+        { path: '/contacts', name: 'Contacts' },
       ],
 
     };
   },
   methods: {
     onCartClick() {
-      this.$router.push('/cart');
+      this.$router.push({ path: '/cart' });
     },
   },
 };
@@ -33,7 +33,9 @@ export default {
       </ul>
       <ul>
         <li v-for="link in links" :key="link.path">
-          <router-link :to="link.path">
+          <router-link
+            :to="{ path: link.path }"
+          >
             {{ link.name }}
           </router-link>
         </li>

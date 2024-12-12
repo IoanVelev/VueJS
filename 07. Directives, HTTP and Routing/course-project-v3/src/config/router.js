@@ -4,14 +4,14 @@ import CartView from '../pages/CartView.vue';
 import ContactsView from '../pages/ContactsView.vue';
 import HomeView from '../pages/HomeView.vue';
 import ProductsView from '../pages/Products/ProductsView.vue';
+import SingleProduct from '../pages/Products/SingleProduct.vue';
 import RegisterView from '../pages/Register/RegisterView.vue';
-import SingleProduct from '../pages/SingleProduct.vue';
 
 const routes = [
   { path: '/', component: HomeView },
   { path: '/products', component: ProductsView },
   { path: '/about', component: AboutView },
-  { path: '/regsiter', component: RegisterView },
+  { path: '/register', component: RegisterView },
   { path: '/contacts', component: ContactsView },
   { path: '/product/:id', component: SingleProduct },
   { path: '/cart', component: CartView },
