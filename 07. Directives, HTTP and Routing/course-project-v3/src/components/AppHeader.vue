@@ -1,6 +1,22 @@
 <script>
 export default {
-  emits: ['select'],
+  data() {
+    return {
+      links: [
+        { path: '/', name: 'Home' },
+        { path: '/products', name: 'ProductsView' },
+        { path: '/about', name: 'AboutView' },
+        { path: '/regsiter', name: 'RegisterView' },
+        { path: '/contacts', name: 'ContactsView' },
+      ],
+
+    };
+  },
+  methods: {
+    onCartClick() {
+      this.$router.push('/cart');
+    },
+  },
 };
 </script>
 
@@ -16,12 +32,17 @@ export default {
         </li>
       </ul>
       <ul>
-        <li><a href="#" @click.prevent="$emit('select', 'HomeView')">Home</a></li>
-        <li><a href="#" @click.prevent="$emit('select', 'ProductsView')">Products</a></li>
-        <li><a href="#" @click.prevent="$emit('select', 'AboutView')">About</a></li>
-        <li><a href="#" @click.prevent="$emit('select', 'ContactsView')">Contacts</a></li>
-        <li><a href="#" @click.prevent="$emit('select', 'RegisterView')">Register</a></li>
-        <li><a href="#" role="button" @click.prevent="$emit('select', 'CartView')">Cart</a></li>
+        <li v-for="link in links" :key="link.path">
+          <router-link :to="link.path">
+            {{ link.name }}
+          </router-link>
+        </li>
+
+        <li>
+          <button type="button" class="primary" @click="onCartClick">
+            Cart
+          </button>
+        </li>
       </ul>
     </nav>
   </header>
