@@ -23,10 +23,10 @@ export default {
 
 <template>
   <ul v-if="categories.length > 0" role="list" class="categories">
-    <li v-for="category in categories" :key="`ctg-btn-${category.value}`">
+    <li v-for="category in categories" :key="`ctg-btn-${category.slug}`">
       <button
-        :class="[category.value === activeCategory ? 'primary' : 'secondary outline']"
-        @click="$emit('select', category.value)"
+        :class="[category.slug === activeCategory ? 'primary' : 'secondary outline']"
+        @click="$emit('select', category.slug)"
       >
         {{ category.name }}
       </button>
