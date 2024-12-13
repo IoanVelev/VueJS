@@ -1,6 +1,11 @@
+import { createPinia } from 'pinia';
 import { createApp } from 'vue';
-import './styles/reset.css';
 import App from './App.vue';
+import './styles/reset.css';
+
+const pinia = createPinia();
 
 const app = createApp(App);
+
+app.use(pinia);
 app.mount('#app');
