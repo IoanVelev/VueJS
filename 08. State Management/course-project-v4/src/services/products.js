@@ -30,11 +30,11 @@ export async function getProductsByIds(ids) {
   if (!Array.isArray(ids))
     return;
   try {
-    const promises = ids.map(id => axiosInstance.get(`/${ENDPOINT}/category/${id}`));
+    const promises = ids.map(id => axiosInstance.get(`/${ENDPOINT}/${id}`));
     const response = await Promise.allSettled(promises);
     return response
       .filter(entry => entry.status === 'fulfilled')
-      .map(entry => entry.value);
+      .map(entry => entry.value.data);
   }
   catch (e) {
     console.error('An error occurred', e);
