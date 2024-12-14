@@ -8,6 +8,7 @@ export default {
         { path: '/about', name: 'About' },
         { path: '/register', name: 'Register' },
         { path: '/contacts', name: 'Contacts' },
+        { path: '/favorites', name: 'Favorites' },
       ],
 
     };
