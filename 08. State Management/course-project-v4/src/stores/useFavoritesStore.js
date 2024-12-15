@@ -37,5 +37,8 @@ export const useFavouritesStore = defineStore('favouriesStore', {
       this.products = response;
       this.isLoading = false;
     },
+    resetProducts() {
+      this.products = [];
+    },
   },
 });

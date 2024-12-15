@@ -13,6 +13,9 @@ export default {
   async created() {
     this.favouritesStore.loadFavorites();
   },
+  unmounted() {
+    this.favouritesStore.resetProducts();
+  },
 };
 </script>
 
