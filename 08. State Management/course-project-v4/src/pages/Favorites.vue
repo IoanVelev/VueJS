@@ -21,9 +21,9 @@ export default {
 
   <progress v-if="favouritesStore.isLoading" />
 
-  <div v-else-if="favouritesStore.products.length > 0" class="products">
+  <div v-else-if="favouritesStore.favoriteProducts.length > 0" class="products">
     <ProductCard
-      v-for="prod in favouritesStore.products"
+      v-for="prod in favouritesStore.favoriteProducts"
       :key="prod.title + prod.id"
       :product="prod"
     />
