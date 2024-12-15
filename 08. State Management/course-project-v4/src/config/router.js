@@ -40,4 +40,8 @@ const router = createRouter({
   history: createWebHistory(),
 });
 
+router.beforeEach((to, from) => {
+  console.log('before the routing', to, from);
+});
+
 export default router;
