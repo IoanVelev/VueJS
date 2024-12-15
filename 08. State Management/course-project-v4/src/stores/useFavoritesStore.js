@@ -7,6 +7,9 @@ export const useFavouritesStore = defineStore('favouriesStore', {
     products: [],
     isLoading: false,
   }),
+  getters: {
+    favoriteProducts: state => state.products.filter(prod => state.favorites.has(prod.id)),
+  },
   actions: {
     // addToFavorites(productId) {
     //   this.favorites.add(productId);
