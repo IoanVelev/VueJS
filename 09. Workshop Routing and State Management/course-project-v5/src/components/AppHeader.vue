@@ -7,6 +7,7 @@ export default {
         { path: '/products', name: 'Products' },
         { path: '/about', name: 'About' },
         { path: '/register', name: 'Register' },
+        { path: '/login', name: 'Login' },
         { path: '/contacts', name: 'Contacts' },
         { path: '/favorites', name: 'Favorites' },
       ],

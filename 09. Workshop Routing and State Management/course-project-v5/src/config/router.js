@@ -4,6 +4,7 @@ import CartView from '../pages/CartView.vue';
 import ContactsView from '../pages/ContactsView.vue';
 import Favorites from '../pages/Favorites.vue';
 import HomeView from '../pages/HomeView.vue';
+import LoginView from '../pages/LoginView.vue';
 import NotFound from '../pages/NotFound.vue';
 import ProductsView from '../pages/Products/ProductsView.vue';
 import SingleProduct from '../pages/Products/SingleProduct.vue';
@@ -18,6 +19,7 @@ const routes = [
   { path: '/products', component: ProductsView },
   { path: '/about', component: AboutView },
   { path: '/register', component: RegisterView },
+  { path: '/login', component: LoginView },
   { path: '/contacts', component: ContactsView },
   { path: '/product/:id', component: SingleProduct },
   { path: '/favorites', component: Favorites },
