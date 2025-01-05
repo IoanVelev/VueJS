@@ -46,9 +46,9 @@ export default {
     <article>
       <form @submit.prevent="onLogin">
         <FormFieldset title="Username" :errors="v$.form.password.$errors">
-          <input v-model="v$.form.username.$model" type="password" placeholder="Enter your username">
+          <input v-model="v$.form.username.$model" type="text" placeholder="Enter your username">
         </FormFieldset>
-        <FormFieldset title="password" :errors="v$.form.rePass.$errors">
+        <FormFieldset title="Password" :errors="v$.form.password.$errors">
           <input v-model="v$.form.password.$model" type="password" placeholder="Enter your password">
         </FormFieldset>
 
