@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-  <div>
+  <div class="formContainer">
     <article>
       <form @submit.prevent="onLogin">
         <FormFieldset title="Username" :errors="v$.form.password.$errors">
@@ -59,3 +59,17 @@ export default {
     </article>
   </div>
 </template>
+
+<style scoped>
+.formContainer{
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formContainer article {
+  width: 100%;
+  max-width: 600px;
+}
+</style>
