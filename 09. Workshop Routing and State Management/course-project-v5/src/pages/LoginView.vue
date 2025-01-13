@@ -1,6 +1,7 @@
 <script>
 import useVuelidate from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
+import { loginUser } from '../services/auth';
 import FormFieldset from './Register/components/FormFieldset.vue';
 
 export default {
@@ -15,8 +16,8 @@ export default {
   data() {
     return {
       form: {
-        username: '',
-        password: '',
+        username: 'emilys',
+        password: 'emilyspass',
       },
     };
   },
@@ -34,8 +35,6 @@ export default {
 
       if (!isValid)
         return;
-
-      console.log(this.form);
     },
   },
 };
