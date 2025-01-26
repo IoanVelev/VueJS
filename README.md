@@ -20,3 +20,8 @@ During the course, special attention will be paid to building and organizing pro
 -> Form building and data validation
 
 -> State management with Pinia
+
+## CERTIFICATE:
+
+![VueJS - November 2024 - Certificate](https://github.com/user-attachments/assets/3ffdb18d-a883-489c-a584-5447a2077784)
+
